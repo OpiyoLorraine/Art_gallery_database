@@ -1,7 +1,8 @@
-# ArtGallery Inventory Management System
+# Art Gallery Database
 
 ## Project Description
-The ArtGallery Inventory Management System is designed to manage the artworks, artists, and exhibitions of an art gallery. It allows users to add new artists, artworks, and exhibitions, as well as associate artworks with exhibitions.
+Art Gallery Database is a CLI application designed to manage an art gallery's inventory, including artists, artworks, and exhibitions. The system allows for managing artist profiles, artwork details, and exhibition schedules. The application interacts with an SQLite database using Object-Oriented Programming (OOP) and ORM principles. It features three primary tables with one-to-many relationships and a composite key for exhibition schedules.
+
 
 ## Installation Instructions
 1. Clone the repository:
