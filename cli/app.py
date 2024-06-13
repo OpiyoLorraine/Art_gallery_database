@@ -1,5 +1,3 @@
-# cli/app.py
-
 import os
 import sys
 from datetime import datetime
@@ -73,6 +71,54 @@ def delete_exhibition(db):
     else:
         print(f"Exhibition ID {exhibition_id} not found.")
 
+def update_artist(db):
+    artist_id = int(input("Enter the ID of the artist to update: "))
+    artist = db.query(Artist).filter(Artist.id == artist_id).first()
+    if artist:
+        new_name = input(f"Enter new name for artist (current: {artist.name}): ")
+        new_biography = input(f"Enter new biography for artist (current: {artist.biography}): ")
+        if new_name:
+            artist.name = new_name
+        if new_biography:
+            artist.biography = new_biography
+        db.commit()
+        print(f"Artist ID {artist_id} updated.")
+    else:
+        print(f"Artist ID {artist_id} not found.")
+
+def update_artwork(db):
+    artwork_id = int(input("Enter the ID of the artwork to update: "))
+    artwork = db.query(Artwork).filter(Artwork.id == artwork_id).first()
+    if artwork:
+        new_title = input(f"Enter new title for artwork (current: {artwork.title}): ")
+        new_type = input(f"Enter new type for artwork (current: {artwork.type}): ")
+        if new_title:
+            artwork.title = new_title
+        if new_type:
+            artwork.type = new_type
+        db.commit()
+        print(f"Artwork ID {artwork_id} updated.")
+    else:
+        print(f"Artwork ID {artwork_id} not found.")
+
+def update_exhibition(db):
+    exhibition_id = int(input("Enter the ID of the exhibition to update: "))
+    exhibition = db.query(Exhibition).filter(Exhibition.id == exhibition_id).first()
+    if exhibition:
+        new_name = input(f"Enter new name for exhibition (current: {exhibition.name}): ")
+        new_start_date = input(f"Enter new start date for exhibition (current: {exhibition.start_date}, YYYY-MM-DD): ")
+        new_end_date = input(f"Enter new end date for exhibition (current: {exhibition.end_date}, YYYY-MM-DD): ")
+        if new_name:
+            exhibition.name = new_name
+        if new_start_date:
+            exhibition.start_date = datetime.strptime(new_start_date, '%Y-%m-%d').date()
+        if new_end_date:
+            exhibition.end_date = datetime.strptime(new_end_date, '%Y-%m-%d').date()
+        db.commit()
+        print(f"Exhibition ID {exhibition_id} updated.")
+    else:
+        print(f"Exhibition ID {exhibition_id} not found.")
+
 def main():
     # Initialize the database and create tables if they don't exist
     create_tables()
@@ -88,7 +134,10 @@ def main():
             print("3. Delete artist")
             print("4. Delete artwork")
             print("5. Delete exhibition")
-            print("6. Exit")
+            print("6. Update artist")
+            print("7. Update artwork")
+            print("8. Update exhibition")
+            print("9. Exit")
 
             choice = input("Select an option: ")
 
@@ -144,6 +193,15 @@ def main():
                 delete_exhibition(db)
 
             elif choice == '6':
+                update_artist(db)
+
+            elif choice == '7':
+                update_artwork(db)
+
+            elif choice == '8':
+                update_exhibition(db)
+
+            elif choice == '9':
                 break
 
             else:
